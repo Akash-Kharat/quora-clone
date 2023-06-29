@@ -23,7 +23,7 @@ function App() {
 
      <NavBar isLoggedIn={isLoggedIn} loginData={loginData}setLogOut={setLoggedOut}/>
      <Routes>
-      <Route path='/' element={<MainPage/>}/>
+      <Route path='/' element={<MainPage isLoggedIn={isLoggedIn}/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/logs' element={<QA_page isLoggedIn={isLoggedIn} setLogIn={setLogIn}  loginData={loginData} setLoginData={setLoginData}/>}/>
       <Route path='/addquestion' element={<Add_Question/>}/>

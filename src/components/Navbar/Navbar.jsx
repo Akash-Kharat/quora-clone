@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -7,19 +8,31 @@ import logo from "../../assets/logo.jpg";
 import { NavLink ,useNavigate} from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { useEffect, useState } from 'react';
 
 function NavBar({ isLoggedIn, loginData ,setLogOut}) {
 
-    const history = useNavigate();
-    const Logout = () => {
+        const history = useNavigate();
+        const [userName,setUserName] = useState("");
+        const Logout = () => {
         localStorage.removeItem("user_login");
         history("/");
         setLogOut();
     
-      }
+         }
+      const getUserName=()=>{
+        if(isLoggedIn){
+            const data = loginData[0].name.split(' ');
+            const uname =data[0].toUpperCase() 
+            setUserName(uname);
+             }
+        }
+      useEffect(()=>{
+        getUserName();
+      },[])
     return (
         <>
-            <Navbar expand="lg" bg="dark" data-bs-theme="light" sticky='top' >
+            <Navbar expand="lg" bg="light" data-bs-theme="light" sticky='top' >
                 <Container style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <Navbar.Brand > {isLoggedIn ?
                         <NavLink to='/logs'><img src={logo} alt="logo" width="100px" /></NavLink>
@@ -44,15 +57,15 @@ function NavBar({ isLoggedIn, loginData ,setLogOut}) {
                             {isLoggedIn ?
                                 
                                     <Dropdown as={ButtonGroup}>
-                                        <h3 style={{color:"white"}}>{loginData[0].name} </h3>
-                                        <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
+                                        <h3 style={{color:"black"}}>{userName} </h3>
+                                        <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                                         <Dropdown.Menu>
                                             <Dropdown.Item ><Button variant="danger" onClick={Logout}>LogOut</Button></Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     
                                 :
-                                <NavLink to='/'> <Button variant="danger">LogIn</Button></NavLink> 
+                                <NavLink to='/login'> <Button variant="danger">LogIn</Button></NavLink> 
                             }
 
                         </Navbar.Text>

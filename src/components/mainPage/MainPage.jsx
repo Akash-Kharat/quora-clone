@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-function MainPage() {
+function MainPage({isLoggedIn}) {
 
   const  [inputValue, setInputValue] = useState({
           name:"",
@@ -62,7 +62,10 @@ function MainPage() {
   }
 
   return (
-    <>
+    <> {
+        isLoggedIn ? '/logs' : 
+
+   
       <div className='container mt-3 '>
         <section>
           <div className="leftData col-lg-6">
@@ -96,6 +99,7 @@ function MainPage() {
           </div>
         </section>
       </div>
+        }
     </>
   )
 }
